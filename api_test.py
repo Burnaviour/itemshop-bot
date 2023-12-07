@@ -16,49 +16,99 @@ URL = "https://fortniteapi.io/v2/shop?lang=en"
 logging.basicConfig(filename='api_test.log', level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-obj = requests.get(URL, headers={"Authorization": TOKEN})
+obj = requests.get(URL, headers={"Authorization": TOKEN}, timeout=10)
 data = obj.json()['shop']
-
-img = Image.new('RGB', (1500, 500))
-
-x_offset = 0
-y_offset = 0
+font_path = os.path.join(os.getcwd(), "static/fonts", "fortnite.otf")
+x_offset = 100
+y_offset = 200
 images_in_row = 0
-print(len(data))
+count = 0
+# num_images_in_row = 4
+# num_images = len(data)
+# img_width = 500
+# num_rows = (num_images + num_images_in_row - 1) // num_images_in_row
+# image_size = (img_width * num_images_in_row, img_width * num_rows)
+
+# Use the 'image_size' variable to resize the blank image
+
+
+
+
+
+
+#img = Image.new('RGB',(2250,3300))
+
+content = []
+
 for i in data:
     logging.info("started %s", i['mainId'])
     try:
         display_name = i['displayName']
-        media_url = i['displayAssets'][0]['url']
-        response = requests.get(media_url, stream=True)
+        if i['displayAssets']:
+            media_url = i['displayAssets'][0]['full_background'] or False
+            count += 1
+            response = requests.get(media_url, stream=True)
+            logging.info("%d Downloaded and added image for %s", count, display_name)
 
-        # Open the image with Pillow
-        img_temp = Image.open(io.BytesIO(response.content))
-
-        # Resize the image if needed
-        img_temp = img_temp.resize((250, 250))
-
-        # Paste the image onto the blank image
-        img.paste(img_temp, (x_offset, y_offset))
-
-        # Add display name on the image
-        draw = ImageDraw.Draw(img)
-        font = ImageFont.truetype("arial.ttf", 20)
-        draw.text((x_offset, y_offset + 250), display_name,
-                  font=font, fill=(255, 255, 255))
-
-        x_offset += 250
-        images_in_row += 1
-
-        # If the row is full, move to the next row
-        if images_in_row == 4:
-            images_in_row = 0
-            x_offset = 0
-            y_offset += 250
-
-        logging.info("Downloaded and added image for %s", display_name)
+        
+            content.append(response)
     except requests.exceptions.RequestException as e:
         logging.error("An error occurred: %s", e)
+        
+pictures = len(content)//4
 
-# Save the final image
+size_calc_width = 1080 * 4 + 350
+size_calc_height = 1080 * pictures + 400 + ((pictures-1)*50)
+print(size_calc_width, size_calc_height)
+img = Image.new('RGB',(int(size_calc_width),int(size_calc_height)),color=(255,48,65))
+
+for picture in content:
+    img_temp = Image.open(io.BytesIO(picture.content))
+    img_temp = img_temp.resize((1080, 1080))
+    img.paste(img_temp, (x_offset, y_offset))
+    x_offset += 1080 + 50
+    images_in_row += 1
+    if images_in_row == 4:
+        images_in_row = 0
+        x_offset = 100
+        y_offset += 1080 + 50
+    logging.info("doen")
+
+
 img.save('new_image.png')
+
+
+
+
+
+
+
+
+
+        
+
+#         # Open the image with Pillow
+#         img_temp = Image.open(io.BytesIO(response.content))
+#         # img_temp.save(f'{display_name}.png')
+
+#         # Resize the image if needed
+#         img_temp = img_temp.resize((1080, 1080))
+
+#         # Paste the image onto the blank image
+#         #img.paste(img_temp, (x_offset, y_offset))
+
+#         x_offset += 500
+#         images_in_row += 1
+
+#         # If the row is full, move to the next row
+#         if images_in_row == 4:
+#             images_in_row = 0
+#             x_offset = 0
+#             y_offset += 500
+
+#         count += 1
+#         logging.info("%d Downloaded and added image for %s", count, display_name)
+   
+
+# # Save the final image
+# img.save('new_image.png')
