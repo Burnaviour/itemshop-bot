@@ -3,8 +3,10 @@ import shutil
 from dotenv import load_dotenv
 import requests
 import logging
+import math
 import io
 from PIL import Image, ImageDraw, ImageFont
+from colour import Color
 
 
 load_dotenv()
@@ -19,24 +21,13 @@ logging.basicConfig(filename='api_test.log', level=logging.INFO,
 obj = requests.get(URL, headers={"Authorization": TOKEN}, timeout=10)
 data = obj.json()['shop']
 font_path = os.path.join(os.getcwd(), "static/fonts", "fortnite.otf")
-x_offset = 100
-y_offset = 200
+picture_resolutions = 1080
+picture_spacing = 50
+x_offset = 200
+text_off_set = 1080
+y_offset = 200 + text_off_set
 images_in_row = 0
 count = 0
-# num_images_in_row = 4
-# num_images = len(data)
-# img_width = 500
-# num_rows = (num_images + num_images_in_row - 1) // num_images_in_row
-# image_size = (img_width * num_images_in_row, img_width * num_rows)
-
-# Use the 'image_size' variable to resize the blank image
-
-
-
-
-
-
-#img = Image.new('RGB',(2250,3300))
 
 content = []
 
@@ -50,65 +41,47 @@ for i in data:
             response = requests.get(media_url, stream=True)
             logging.info("%d Downloaded and added image for %s", count, display_name)
 
-        
+
             content.append(response)
     except requests.exceptions.RequestException as e:
         logging.error("An error occurred: %s", e)
-        
-pictures = len(content)//4
 
-size_calc_width = 1080 * 4 + 350
-size_calc_height = 1080 * pictures + 400 + ((pictures-1)*50)
+pictures = math.sqrt(len(content))
+pictures = math.ceil(pictures) if type(pictures) == float else pictures
+
+
+size_calc_width = picture_resolutions * pictures + (x_offset*2) + ((pictures-1)*picture_spacing)
+size_calc_height = picture_resolutions * pictures + 400 + ((pictures-1)*picture_spacing) + text_off_set
 print(size_calc_width, size_calc_height)
-img = Image.new('RGB',(int(size_calc_width),int(size_calc_height)),color=(255,48,65))
+red = Color("red")
+colors = list(red.range_to(Color("green"),10))
+print(colors)
+
+
+img = Image.new('RGB',(int(size_calc_width),int(size_calc_height)),color=(144,238,144))
 
 for picture in content:
     img_temp = Image.open(io.BytesIO(picture.content))
-    img_temp = img_temp.resize((1080, 1080))
+    img_temp = img_temp.resize((1080, 1080))  
     img.paste(img_temp, (x_offset, y_offset))
-    x_offset += 1080 + 50
+    x_offset += 1080 + picture_spacing
     images_in_row += 1
-    if images_in_row == 4:
+    if images_in_row == pictures:
         images_in_row = 0
-        x_offset = 100
-        y_offset += 1080 + 50
+        x_offset = 200
+        y_offset += 1080 + picture_spacing
     logging.info("doen")
-
 
 img.save('new_image.png')
 
+draw = ImageDraw.Draw(img)  
+font = ImageFont.truetype('/home/muzafar/Desktop/dev/static/fonts/fortnite.otf', size=800)
 
+text = "Daily Item Shop"
 
+width = font.getlength(text)
 
-
-
-
-
-
-        
-
-#         # Open the image with Pillow
-#         img_temp = Image.open(io.BytesIO(response.content))
-#         # img_temp.save(f'{display_name}.png')
-
-#         # Resize the image if needed
-#         img_temp = img_temp.resize((1080, 1080))
-
-#         # Paste the image onto the blank image
-#         #img.paste(img_temp, (x_offset, y_offset))
-
-#         x_offset += 500
-#         images_in_row += 1
-
-#         # If the row is full, move to the next row
-#         if images_in_row == 4:
-#             images_in_row = 0
-#             x_offset = 0
-#             y_offset += 500
-
-#         count += 1
-#         logging.info("%d Downloaded and added image for %s", count, display_name)
-   
-
-# # Save the final image
-# img.save('new_image.png')
+draw.text((16,16), text, fill="black", font=font)
+draw.text((0,0), text, fill="white", font=font)
+print(width)
+img.save('new_image_with_text.png')
