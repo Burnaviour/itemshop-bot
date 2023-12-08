@@ -7,6 +7,7 @@ import math
 import io
 from PIL import Image, ImageDraw, ImageFont
 from colour import Color
+import datetime
 
 
 load_dotenv()
@@ -76,12 +77,20 @@ img.save('new_image.png')
 
 draw = ImageDraw.Draw(img)  
 font = ImageFont.truetype('/home/muzafar/Desktop/dev/static/fonts/fortnite.otf', size=800)
-
+font2 = ImageFont.truetype('/home/muzafar/Desktop/dev/static/fonts/fortnite.otf', size=200)
 text = "Daily Item Shop"
 
 width = font.getlength(text)
 
-draw.text((16,16), text, fill="black", font=font)
-draw.text((0,0), text, fill="white", font=font)
-print(width)
+fontcenter = (size_calc_width - width) / 2
+
+draw.text((fontcenter+16,250+16), text, fill="black", font=font)
+draw.text((fontcenter,250), text, fill="white", font=font)
+
+date = datetime.datetime.now()
+date = date.strftime("%d-%m-%Y")
+draw.text((100,250), date, fill="white", font=font2)
+
+
+
 img.save('new_image_with_text.png')
