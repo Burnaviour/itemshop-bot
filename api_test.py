@@ -13,29 +13,6 @@ import facebook
 
 load_dotenv()
 
-# def compress_image(image, max_size=3110000, initial_quality=90, step=10):
-#     """
-#     Compress an image, keeping its aspect ratio.
-#     :param image: The PIL Image object.
-#     :param max_size: The maximum size of the output image, in bytes.
-#     :param initial_quality: The initial quality of the image.
-#     :param step: The quality reduction step size.
-#     :return: The path to the compressed image.
-#     """
-#     quality = initial_quality
-
-#     # Save the image with reduced quality.
-#     temp_path = "final_image.jpg"
-#     # Iterate until the size is acceptable.
-#     while True:
-#         image.save(temp_path)
-#         # Check the size.
-#         size = os.stat(temp_path).st_size
-#         if size <= max_size or quality <= step or size <= 3110000:  # Add condition to terminate loop if size is less than or equal to 4 MB.
-#             return temp_path
-#         # Reduce the quality for the next iteration.
-#         quality -= step
-
 TOKEN = os.getenv('TOKEN')
 URL = "https://fortniteapi.io/v2/shop?lang=en"
 
