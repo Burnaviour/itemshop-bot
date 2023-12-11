@@ -8,9 +8,33 @@ import io
 from PIL import Image, ImageDraw, ImageFont
 from colour import Color
 import datetime
+import facebook
 
 
 load_dotenv()
+
+# def compress_image(image, max_size=3110000, initial_quality=90, step=10):
+#     """
+#     Compress an image, keeping its aspect ratio.
+#     :param image: The PIL Image object.
+#     :param max_size: The maximum size of the output image, in bytes.
+#     :param initial_quality: The initial quality of the image.
+#     :param step: The quality reduction step size.
+#     :return: The path to the compressed image.
+#     """
+#     quality = initial_quality
+
+#     # Save the image with reduced quality.
+#     temp_path = "final_image.jpg"
+#     # Iterate until the size is acceptable.
+#     while True:
+#         image.save(temp_path)
+#         # Check the size.
+#         size = os.stat(temp_path).st_size
+#         if size <= max_size or quality <= step or size <= 3110000:  # Add condition to terminate loop if size is less than or equal to 4 MB.
+#             return temp_path
+#         # Reduce the quality for the next iteration.
+#         quality -= step
 
 TOKEN = os.getenv('TOKEN')
 URL = "https://fortniteapi.io/v2/shop?lang=en"
@@ -71,9 +95,9 @@ for picture in content:
         images_in_row = 0
         x_offset = 200
         y_offset += 1080 + picture_spacing
-    logging.info("doen")
+    logging.info("done")
 
-img.save('new_image.png')
+# img.save('new_image.png')
 
 draw = ImageDraw.Draw(img)  
 font = ImageFont.truetype('/home/muzafar/Desktop/dev/static/fonts/fortnite.otf', size=800)
@@ -87,10 +111,9 @@ fontcenter = (size_calc_width - width) / 2
 draw.text((fontcenter+16,250+16), text, fill="black", font=font)
 draw.text((fontcenter,250), text, fill="white", font=font)
 
-date = datetime.datetime.now()
-date = date.strftime("%d-%m-%Y")
+date = datetime.datetime.now()u
 draw.text((100,250), date, fill="white", font=font2)
-
-
-
-img.save('new_image_with_text.png')
+# img.save("output", format='JPEG', optimize=True, quality=50)
+# compressed_image_path = compress_image(image=img)
+img.save("final_image.jpeg", format="jpeg",quality=5)
+# logging.info(compressed_image_path)
