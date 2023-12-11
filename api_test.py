@@ -83,7 +83,7 @@ colors = list(red.range_to(Color("green"),10))
 print(colors)
 
 
-img = Image.new('RGB',(int(size_calc_width),int(size_calc_height)),color=(144,238,144))
+img = Image.new('RGB',(2080,2080),color=(144,238,144))
 
 for picture in content:
     img_temp = Image.open(io.BytesIO(picture.content))
@@ -111,9 +111,7 @@ fontcenter = (size_calc_width - width) / 2
 draw.text((fontcenter+16,250+16), text, fill="black", font=font)
 draw.text((fontcenter,250), text, fill="white", font=font)
 
-date = datetime.datetime.now()u
+date = datetime.datetime.now()
+date = date.strftime("%d-%m-%Y")
 draw.text((100,250), date, fill="white", font=font2)
-# img.save("output", format='JPEG', optimize=True, quality=50)
-# compressed_image_path = compress_image(image=img)
 img.save("final_image.jpeg", format="jpeg",quality=5)
-# logging.info(compressed_image_path)

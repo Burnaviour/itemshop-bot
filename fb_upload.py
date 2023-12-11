@@ -12,7 +12,6 @@ logger = logging.getLogger(__name__)
 
 API_TOKEN = os.getenv("API_TOKEN")
 PAGE_ID = os.getenv("PAGE_ID")  # You need the Page ID to post to a specific page
-logger.info(API_TOKEN)
 date = dt.datetime.now().strftime("%d/%m/%Y")
 day = dt.datetime.now().strftime("%A")   
 alram=emojize(':alarm_clock:')
@@ -29,7 +28,7 @@ if API_TOKEN and PAGE_ID and os.path.isfile(image_path) and os.path.getsize(imag
         try:
             logger.info("Uploading image... %s", image_file)
             response = requests.post(url, params=params, files=files)
-            logger.info(response.json())
+            # logger.info(response.json())
         except requests.exceptions.RequestException as e:
             logger.error("Error: %s", e)
 else:
