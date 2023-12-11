@@ -13,6 +13,7 @@ import facebook
 
 load_dotenv()
 
+
 TOKEN = os.getenv('TOKEN')
 URL = "https://fortniteapi.io/v2/shop?lang=en"
 
@@ -60,7 +61,7 @@ colors = list(red.range_to(Color("green"),10))
 print(colors)
 
 
-img = Image.new('RGB',(2080,2080),color=(144,238,144))
+img = Image.new('RGB',(int(size_calc_width),int(size_calc_height)),color=(144,238,144))
 
 for picture in content:
     img_temp = Image.open(io.BytesIO(picture.content))
