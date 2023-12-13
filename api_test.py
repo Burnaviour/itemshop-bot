@@ -56,10 +56,6 @@ pictures = math.ceil(pictures) if type(pictures) == float else pictures
 size_calc_width = picture_resolutions * pictures + (x_offset*2) + ((pictures-1)*picture_spacing)
 size_calc_height = picture_resolutions * pictures + 400 + ((pictures-1)*picture_spacing) + text_off_set
 print(size_calc_width, size_calc_height)
-red = Color("red")
-colors = list(red.range_to(Color("green"),10))
-print(colors)
-
 
 img = Image.new('RGB',(int(size_calc_width),int(size_calc_height)),color=(144,238,144))
 
@@ -92,4 +88,4 @@ draw.text((fontcenter,250), text, fill="white", font=font)
 date = datetime.datetime.now()
 date = date.strftime("%d-%m-%Y")
 draw.text((100,250), date, fill="white", font=font2)
-img.save("final_image.jpeg", format="jpeg",quality=5)
+img.save("final_image.png", format="PNG")
