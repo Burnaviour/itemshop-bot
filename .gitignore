@@ -4,3 +4,6 @@
 /myvenv
 /static
 .log
+api_test.log
+fb_logs.log
+
