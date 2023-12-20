@@ -88,4 +88,11 @@ draw.text((fontcenter,250), text, fill="white", font=font)
 date = datetime.datetime.now()
 date = date.strftime("%d-%m-%Y")
 draw.text((100,250), date, fill="white", font=font2)
-img.save("final_image.png", format="PNG")
+img.save("final_image1.png", format="PNG")
+if os.path.exists('final_image1.png'):
+    image = Image.open('final_image1.png')
+    width, height = image.size
+    new_width = 2048
+    new_height = int(new_width * height / width)
+    image = image.resize((new_width, new_height))
+    image.save('final_image.png')
