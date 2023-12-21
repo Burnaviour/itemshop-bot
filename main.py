@@ -7,7 +7,7 @@ def main():
         fb_upload.main()
 
 # Schedule the main function to run every day at 5 am Pakistani time
-schedule.every().day.at("10:01").do(main)
+schedule.every().day.at("05:02").do(main)
 
 while True:
     schedule.run_pending()
