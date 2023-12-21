@@ -7,7 +7,7 @@ import io
 from PIL import Image, ImageDraw, ImageFont
 import datetime
 
-logging.basicConfig(filename='/home/muzafar/Desktop/dev/api_test.log', level=logging.INFO,
+logging.basicConfig(filename='api_test.log', level=logging.INFO,
                         format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 def generate_item_shop_image():
