@@ -6,5 +6,7 @@
 .log
 api_test.log
 fb_logs.log
+__pycache__
+
 
 

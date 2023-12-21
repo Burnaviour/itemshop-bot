@@ -6,8 +6,6 @@ from dotenv import load_dotenv
 from emoji import emojize
 import aiohttp
 import asyncio
-logging.basicConfig(filename='fb_logs.log', level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 
@@ -42,8 +40,14 @@ async def post_to_facebook(image_path):
         data.add_field('message', message)
         async with aiohttp.ClientSession() as session:
             async with session.post(url, data=data) as response:
+                
                 logger.info(await response.text())
                 logger.info("Uploaded image to Facebook.")
+        os.remove(image_path)
+        os.remove("final_image1.png")
+                
+                
+                
     else:
         logger.error("Invalid image file or missing API_TOKEN or PAGE_ID.")
 
