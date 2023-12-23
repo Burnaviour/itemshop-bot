@@ -6,8 +6,10 @@ from dotenv import load_dotenv
 from emoji import emojize
 import aiohttp
 import asyncio
-logger = logging.getLogger(__name__)
 
+logging.basicConfig(filename='api_test.log', level=logging.INFO,
+                        format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 def get_current_date():
