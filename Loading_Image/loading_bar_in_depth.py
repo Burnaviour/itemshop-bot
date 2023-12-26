@@ -94,11 +94,11 @@ def create_loading_bar_image(progress):
     cc_back_path = os.path.join("Loading_Image", "FNCS_BG.JPG")
     cc_back_logo = Image.open(cc_back_path).convert('RGBA')
     cc_back_logo = cc_back_logo.resize((400, 200), Image.NEAREST)
-    resized_image.paste(cc_back_logo, [900, 670], cc_back_logo)
+    resized_image.paste(cc_back_logo, [900, 760], cc_back_logo)
 
-    support_code_pos = [1040, 690]
-    support_code_pos2 = [1025, 740]
-    support_code_pos3 = [1015, 790]
+    support_code_pos = [1040, 790]
+    support_code_pos2 = [1025, 840]
+    support_code_pos3 = [1015, 890]
     support_font_size = 65
     support_code_font = ImageFont.truetype(font_path, support_font_size)
     draw.text(support_code_pos, f"USE", font=support_code_font)
