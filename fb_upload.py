@@ -18,21 +18,25 @@ def get_current_date():
 def get_current_day():
     return dt.datetime.now().strftime("%A")
 
-def get_message():
+def get_message(for_message="itemshop"):
     alram = emojize(':alarm_clock:')
-    shop = emojize(':shopping_cart:')
-    heart = emojize(':red_heart:')
-    day = get_current_day()
-    date = get_current_date()
-    return f"Fortnite Item Shop {shop}\n{alram} {day}, {date}\n {heart} Use code 'BRNYT' to support me! #EpicPartner \n\n #fortnite #fortniteitemshop #fortniteitemshoplive #fortniteitemshopdaily #fortniteitemshopupdate #fortniteitemshopnow #fortniteitemshopnew #fortniteitemshopnews #fortniteitemsh\n"
-
-async def post_to_facebook(image_path):
+    if for_message == "itemshop": 
+        shop = emojize(':shopping_cart:')
+        heart = emojize(':red_heart:')
+        day = get_current_day()
+        date = get_current_date()
+        return f"Fortnite Item Shop {shop}\n{alram} {day}, {date}\n {heart} Use code 'BRNYT' to support me! #EpicPartner \n\n #fortnite #fortniteitemshop #fortniteitemshoplive #fortniteitemshopdaily #fortniteitemshopupdate #fortniteitemshopnow #fortniteitemshopnew #fortniteitemshopnews #fortniteitemsh\n"
+    elif for_message == "loading_bar":
+        timer = emojize(':timer_clock:')
+        season_name= "Chapter 5 Season 1"
+        return f"Fortnite {season_name} Progress {timer} :\n\n  #fortnite #seasonprogress #chapter5season1\n"
+async def post_to_facebook(image_path, for_message="itemshop"):
     API_TOKEN = os.getenv("API_TOKEN")
     PAGE_ID = os.getenv("PAGE_ID")
     if API_TOKEN and PAGE_ID and os.path.isfile(image_path) and os.path.getsize(image_path) < 4 * 1024 * 1024:
         logger.info("Posting to Facebook... PAGE_ID: %s", PAGE_ID)
         url = f"https://graph.facebook.com/v18.0/{PAGE_ID}/photos"
-        message = get_message()
+        message = get_message(for_message=for_message)
         data = aiohttp.FormData()
         data.add_field('source',
                        open(image_path, 'rb'),
@@ -47,16 +51,14 @@ async def post_to_facebook(image_path):
                 logger.info("Uploaded image to Facebook.")
         os.remove(image_path)
         os.remove("final_image1.png")
-                
-                
-                
+               
     else:
         logger.error("Invalid image file or missing API_TOKEN or PAGE_ID.")
 
-def main():
+def main(image_path, for_message):
     load_dotenv()
-    image_path = "final_image.png"
-    asyncio.run(post_to_facebook(image_path))
+    image_path = image_path
+    asyncio.run(post_to_facebook(image_path,for_message=for_message))
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
