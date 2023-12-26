@@ -119,7 +119,7 @@ def display_loading_bar():
     progress_percentage = int(progress * 100)
     loading_bar = create_loading_bar_image(progress)
     try:
-        loading_bar.save("Loading_Bar_Img.png", format="PNG")
+        loading_bar.save("final_loading_bar_img.png", format="PNG")
         return progress_percentage, True
     except Exception as e:
         logging.error("Failed to save image: %s", e)
