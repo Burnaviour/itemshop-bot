@@ -13,7 +13,7 @@ def create_loading_bar_image(progress):
     resize_width, resize_height = 1280, 960
     resized_image = loaded_image.resize((resize_width, resize_height), Image.NEAREST)
     width, height = resized_image.size
-    #print(f"Width:{width}, Height:{height}")
+    # print(f"Width:{width}, Height:{height}")
 
     # Drawing the outer rectangle of the loading bar.
 
@@ -36,7 +36,7 @@ def create_loading_bar_image(progress):
     fill_width = int((width - 128) * progress)
     draw.rectangle([x0 + 10, y0 + 10, fill_width - 10, y1 - 10], fill="#00FFFF")  # Inner
 
-    #print(f"x0:{x0}, y0:{y0}, x1:{x1}, y1:{y1}")
+    # print(f"x0:{x0}, y0:{y0}, x1:{x1}, y1:{y1}")
 
     # Rectangle round behind the percentage
     draw.rounded_rectangle([550, 450, 700, 520], radius=50, fill="#ffffff")
@@ -63,11 +63,11 @@ def create_loading_bar_image(progress):
 
     draw.text(text_position, f"{int_perc} %", fill="black", font=font)
 
-    title_position = [500, 220]
+    title_position = [500, 180]
 
     draw.text(title_position, f"FORTNITE", fill="white", font=title_font)
 
-    title2_position = [400, 300]
+    title2_position = [400, 280]
 
     draw.text(title2_position, f"UNDERGROUND", fill="white", font=title_font)
 
@@ -75,7 +75,7 @@ def create_loading_bar_image(progress):
     #
     # draw.text(title3_position, f"SEASON PROGRESS", fill="white", font=title_font)
 
-    below_title = [490, 580]
+    below_title = [490, 600]
     draw.text(below_title, f"SEASON 1", fill="white", font=title_font)
 
     c5_logo_path = os.path.join("Loading_Image", "IMG_4654.png")
@@ -85,25 +85,27 @@ def create_loading_bar_image(progress):
     chapter_logo = Image.open(c5_logo_path)
     chapter_logo = chapter_logo.resize((200, 200), Image.NEAREST)
 
-    resized_image.paste(battle_bus_logo, [1100, 0], battle_bus_logo)
-    resized_image.paste(chapter_logo, [0, 0], chapter_logo)
+    resized_image.paste(battle_bus_logo, [1080, 20], battle_bus_logo)
+    resized_image.paste(chapter_logo, [20, 20], chapter_logo)
     # FFB700 Yellow
-    number_5 = [80, 65]
+    number_5 = [100, 100]
     draw.text(number_5, f"5", fill="white", font=title_font)
 
     cc_back_path = os.path.join("Loading_Image", "FNCS_BG.JPG")
     cc_back_logo = Image.open(cc_back_path).convert('RGBA')
     cc_back_logo = cc_back_logo.resize((400, 200), Image.NEAREST)
-    resized_image.paste(cc_back_logo, [900, 760], cc_back_logo)
+    # resized_image.paste(cc_back_logo, [900, 760], cc_back_logo)
 
-    support_code_pos = [1040, 790]
-    support_code_pos2 = [1025, 840]
-    support_code_pos3 = [1015, 890]
+    # support_code_pos = [1040, 790]
+    # support_code_pos2 = [1025, 840]
+    # support_code_pos3 = [1015, 890]
+    # draw.text(support_code_pos, f"USE", font=support_code_font)
+    # draw.text(support_code_pos2, f"CODE", font=support_code_font)
+    # draw.text(support_code_pos3, f"BRNYT", font=support_code_font)
     support_font_size = 65
     support_code_font = ImageFont.truetype(font_path, support_font_size)
-    draw.text(support_code_pos, f"USE", font=support_code_font)
-    draw.text(support_code_pos2, f"CODE", font=support_code_font)
-    draw.text(support_code_pos3, f"BRNYT", font=support_code_font)
+    support_code_pos = [900, 890]
+    draw.text(support_code_pos, f"USE CODE BRNYT", font=support_code_font)
     return resized_image
 
 
@@ -120,7 +122,7 @@ def display_loading_bar():
         loading_bar.save("Loading_Bar_Img.png", format="PNG")
         return progress_percentage, True
     except Exception as e:
-        logging.error("Failed to save image: %s",e)
+        logging.error("Failed to save image: %s", e)
         return False
 
 
