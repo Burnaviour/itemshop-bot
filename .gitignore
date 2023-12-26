@@ -9,6 +9,7 @@ fb_logs.log
 __pycache__
 /myenv
 .idea
+/Loading_Image/loading_bar.py
 
 
 
