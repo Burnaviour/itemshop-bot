@@ -21,13 +21,9 @@ logging.basicConfig(filename='api_test.log', level=logging.INFO,
 logger = logging.getLogger(__name__)
 def generate_item_shop_image():
     load_dotenv()
-
     TOKEN = os.getenv('TOKEN')
     URL = "https://fortniteapi.io/v2/shop?lang=en"
-
     # Configure logging
-
-
     obj = requests.get(URL, headers={"Authorization": TOKEN}, timeout=10)
     data = obj.json()['shop']
     picture_resolutions = 1080
