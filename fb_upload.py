@@ -29,7 +29,7 @@ def get_message(for_message="itemshop",progress=0.0):
     elif for_message == "loading_bar":
         timer = emojize(':timer_clock:')
         season_name= "Chapter 5 Season 1"
-        return f"Fortnite {season_name} {timer} Progress {progress}% Completed \n\n  #fortnite #seasonprogress #chapter5season1\n"
+        return f"Fortnite {season_name} \n {timer} Progress {progress}% Completed \n\n  #fortnite #seasonprogress #chapter5season1\n"
 async def post_to_facebook(image_path, for_message="itemshop",progress=0.0):
     
     API_TOKEN = os.environ.get("API_TOKEN")
