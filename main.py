@@ -23,15 +23,14 @@ def main2():
     except Exception as e:
         logging.error("An error occurred: %s",e)
 # Schedule the main function to run every day at 5 am Pakistani time
-# schedule.every().day.at("05:03").do(main)
-# schedule.every().day.at("10:00").do(main2)
+schedule.every().day.at("05:03").do(main)
+schedule.every().day.at("10:00").do(main2)
 
-# while True:
-#     try:
-#         schedule.run_pending()
-#         time.sleep(1)
-#     except KeyboardInterrupt:
-#         break
-#     except Exception as e:
-#         logging.error("An error occurred: %s",e)
-main2()
+while True:
+    try:
+        schedule.run_pending()
+        time.sleep(1)
+    except KeyboardInterrupt:
+        break
+    except Exception as e:
+        logging.error("An error occurred: %s",e)
