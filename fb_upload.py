@@ -31,8 +31,9 @@ def get_message(for_message="itemshop",progress=0.0):
         season_name= "Chapter 5 Season 1"
         return f"Fortnite {season_name} {timer} Progress {progress}% Completed \n\n  #fortnite #seasonprogress #chapter5season1\n"
 async def post_to_facebook(image_path, for_message="itemshop",progress=0.0):
-    API_TOKEN = os.getenv("API_TOKEN")
-    PAGE_ID = os.getenv("PAGE_ID")
+    
+    API_TOKEN = os.environ.get("API_TOKEN")
+    PAGE_ID = os.environ.get("PAGE_ID")
     if API_TOKEN and PAGE_ID and os.path.isfile(image_path) and os.path.getsize(image_path) < 4 * 1024 * 1024:
         logger.info("Posting to Facebook... PAGE_ID: %s", PAGE_ID)
         url = f"https://graph.facebook.com/v18.0/{PAGE_ID}/photos"
@@ -54,9 +55,8 @@ async def post_to_facebook(image_path, for_message="itemshop",progress=0.0):
         logger.error("Invalid image file or missing API_TOKEN or PAGE_ID.")
 
 def main(image_path, for_message,progress=0):
-    load_dotenv()
     image_path = image_path
     asyncio.run(post_to_facebook(image_path,for_message=for_message,progress=progress))
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main("final_image.png","itemshop")
