@@ -27,9 +27,14 @@ def get_message(for_message="itemshop",progress=0.0):
         date = get_current_date()
         return f"Fortnite Item Shop {shop}\n{alram} {day}, {date}\n {heart} Use code 'BRNYT' to support me! #EpicPartner \n\n #fortnite #fortniteitemshop #fortniteitemshoplive #fortniteitemshopdaily #fortniteitemshopupdate #fortniteitemshopnow #fortniteitemshopnew #fortniteitemshopnews #fortniteitemsh\n"
     elif for_message == "loading_bar":
+        season_end_date = dt.datetime(2024, 3, 8)
+        chapter_5_launch_date = dt.datetime(2023, 12, 3)
+        total_days = (season_end_date.date() - dt.datetime.now().date()).days
+        end_date_str = f"The season ends on {season_end_date.date().strftime('%d/%m/%Y')}"
+        remaining_days_str = f"There are {total_days} days remaining in the season"
         timer = emojize(':timer_clock:')
         season_name= "Chapter 5 Season 1"
-        return f"Fortnite {season_name} \n {timer} Progress {progress}% Completed \n\n  #fortnite #seasonprogress #chapter5season1\n"
+        return f"Fortnite {season_name} \n\n {timer}   Progress {progress}% Completed \n\n {end_date_str} \n\n {remaining_days_str} \n\n #fortnite #seasonprogress #chapter5season1\n"
 async def post_to_facebook(image_path, for_message="itemshop",progress=0.0):
     
     API_TOKEN = os.environ.get("API_TOKEN")
@@ -59,4 +64,5 @@ def main(image_path, for_message,progress=0):
     asyncio.run(post_to_facebook(image_path,for_message=for_message,progress=progress))
 
 if __name__ == "__main__":
-    main("final_image.png","itemshop")
+    print(get_message('loading_bar'))
+    # main("final_image.png","itemshop")

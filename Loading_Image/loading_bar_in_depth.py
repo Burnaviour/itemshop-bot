@@ -115,6 +115,7 @@ def display_loading_bar():
     total_days = season_end_date.date() - chapter_5_launch_date.date()
     current_date = datetime.now()
     days_diff = current_date.date() - chapter_5_launch_date.date()
+    
     progress = days_diff.days / total_days.days
     progress_percentage = int(progress * 100)
     loading_bar = create_loading_bar_image(progress)
