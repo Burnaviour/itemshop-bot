@@ -1,11 +1,11 @@
 import os
-from dotenv import load_dotenv
 import requests
 import logging
 import math
 import io
 from PIL import Image, ImageDraw, ImageFont,ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+Image.MAX_IMAGE_PIXELS = None
 import datetime
 # from requests.adapters import HTTPAdapter
 # from urllib3.util.retry import Retry
