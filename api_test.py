@@ -1,11 +1,11 @@
 import os
-from dotenv import load_dotenv
 import requests
 import logging
 import math
 import io
 from PIL import Image, ImageDraw, ImageFont,ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+Image.MAX_IMAGE_PIXELS = None
 import datetime
 # from requests.adapters import HTTPAdapter
 # from urllib3.util.retry import Retry
@@ -20,14 +20,11 @@ logging.basicConfig(filename='api_test.log', level=logging.INFO,
                         format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 def generate_item_shop_image():
-    load_dotenv()
-
-    TOKEN = os.getenv('TOKEN')
+    # load_dotenv()
+    TOKEN = os.environ.get('TOKEN')
+    # TOKEN = os.getenv('TOKEN')
     URL = "https://fortniteapi.io/v2/shop?lang=en"
-
     # Configure logging
-
-
     obj = requests.get(URL, headers={"Authorization": TOKEN}, timeout=10)
     data = obj.json()['shop']
     picture_resolutions = 1080
@@ -108,18 +105,21 @@ def generate_item_shop_image():
     
     try:
         img.save("final_image1.png", format="PNG")
-        _extracted_from_generate_item_shop_image_78()
-        return True
+        _extracted_from_generate_item_shop_image_78(img)
+        return True,count
     except Exception as e:
         logging.error("Failed to save image: %s",e)
         return False
 
 
 # TODO Rename this here and in `generate_item_shop_image`
-def _extracted_from_generate_item_shop_image_78():
-    image = Image.open('final_image1.png')
+def _extracted_from_generate_item_shop_image_78(img):
+    image = img.copy()
     width, height = image.size
     new_width = 2048
     new_height = int(new_width * height / width)
     image = image.resize((new_width, new_height))
     image.save('final_image.png')
+
+if __name__ == "__main__":
+    generate_item_shop_image()
