@@ -33,8 +33,13 @@ def create_loading_bar_image(progress):
     draw.rectangle([x0, y0, x1, y1], outline="#0096FF", width=4)
 
     # Drawing inner rectangle to show filled bar.
-    fill_width = int((width - 128) * progress)
-    draw.rectangle([x0 + 10, y0 + 10, fill_width - 10, y1 - 10], fill="#00FFFF")  # Inner
+    if (progress >= 0.0 and progress <= 1.0):
+        fill_width = int((width - 128) * progress)
+        draw.rectangle([x0 + 10, y0 + 10, fill_width - 10, y1 - 10], fill="#00FFFF")  # Inner
+    elif (progress > 1.0):
+        progress = 1.0
+        fill_width = int((width - 128) * progress)
+        draw.rectangle([x0 + 10, y0 + 10, fill_width - 10, y1 - 10], fill="#00FFFF")  # Inner
 
     # print(f"x0:{x0}, y0:{y0}, x1:{x1}, y1:{y1}")
 
@@ -115,7 +120,10 @@ def display_loading_bar():
     total_days = season_end_date.date() - chapter_5_launch_date.date()
     current_date = datetime.now()
     days_diff = current_date.date() - chapter_5_launch_date.date()
+    # print(days_diff.days + 7)
+    # print(total_days.days)
     progress = days_diff.days / total_days.days
+    print(progress)
     progress_percentage = int(progress * 100)
     loading_bar = create_loading_bar_image(progress)
     try:
