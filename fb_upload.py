@@ -30,14 +30,14 @@ def get_message(for_message="itemshop",progress=0.0):
         date = get_current_date()
         return f"Fortnite Item Shop {shop}\n{alram} {day}, {date}\n {heart} Use code 'BRNYT' to support me! #EpicPartner \n\n #fortnite #fortniteitemshop #fortniteitemshoplive #fortniteitemshopdaily #fortniteitemshopupdate #fortniteitemshopnow #fortniteitemshopnew #fortniteitemshopnews #fortniteitemsh\n"
     elif for_message == "loading_bar":
-        season_end_date = dt.datetime(2024, 3, 8)
-        chapter_5_launch_date = dt.datetime(2023, 12, 3)
+        season_end_date = dt.datetime(2024, 5, 24)
+        chapter_5_launch_date = dt.datetime(2024, 3, 8)
         total_days = (season_end_date.date() - dt.datetime.now().date()).days
         end_date_str = f"The season ends on {season_end_date.date().strftime('%d/%m/%Y')}"
-        remaining_days_str = f"There are {total_days} days remaining in the season"
+        remaining_days_str = f"There are {total_days} days remaining in this season"
         timer = emojize(':timer_clock:')
-        season_name= "Chapter 5 Season 1"
-        return f"Fortnite {season_name} \n\n {timer}   Progress {progress}% Completed \n\n {end_date_str} \n\n {remaining_days_str} \n\n #fortnite #seasonprogress #chapter5season1\n"
+        season_name= "Chapter 5 Season 2"
+        return f"Fortnite {season_name} \n\n {timer} Progress {progress}% Completed \n\n {end_date_str} \n\n {remaining_days_str} \n\n #fortnite #seasonprogress  #EpicPartner #chapter5season2\n"
 async def post_to_facebook(image_path, for_message="itemshop",progress=0.0):
     # load_dotenv() 
     # API_TOKEN = os.getenv("API_TOKEN")
@@ -58,7 +58,7 @@ async def post_to_facebook(image_path, for_message="itemshop",progress=0.0):
             async with session.post(url, data=data) as response:
                 logger.info(await response.text())
                 logger.info("Uploaded image to Facebook.")
-        # os.remove(image_path)
+        os.remove(image_path)
                
     else:
         logger.error("Invalid image file or missing API_TOKEN or PAGE_ID.")

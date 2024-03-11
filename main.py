@@ -29,16 +29,17 @@ def main2():
 # Define variables for the scheduled times
 itemshop_time = "05:03"
 loading_bar_time = "10:00"
+main2()
 
 # Schedule the main function to run every day at the specified times
-schedule.every().day.at(itemshop_time).do(main)
-schedule.every().day.at(loading_bar_time).do(main)
+# schedule.every().day.at(itemshop_time).do(main)
+# schedule.every().day.at(loading_bar_time).do(main)
 
-while True:
-    try:
-        schedule.run_pending()
-        schedule.idle_seconds()
-    except KeyboardInterrupt:
-        break
-    except Exception as e:
-        logging.error("An error occurred: %s",e)
+# while True:
+#     try:
+#         schedule.run_pending()
+#         schedule.idle_seconds()
+#     except KeyboardInterrupt:
+#         break
+#     except Exception as e:
+#         logging.error("An error occurred: %s",e)

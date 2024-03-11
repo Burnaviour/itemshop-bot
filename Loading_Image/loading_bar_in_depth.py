@@ -9,18 +9,16 @@ def create_loading_bar_image(progress):
     # Loading_Image/navy2.jpg
     image_path = os.path.join("Loading_Image", "navy2.jpg")
     font_path = os.path.join("Loading_Image", "fortnite.otf")
-    loaded_image = Image.open(image_path)  # Background Image Widht 4096, Height 2726
+    loaded_image = Image.open(image_path)  # Background Image Width 4096, Height 2726
     resize_width, resize_height = 1280, 960
     resized_image = loaded_image.resize((resize_width, resize_height), Image.NEAREST)
     width, height = resized_image.size
-    # print(f"Width:{width}, Height:{height}")
 
     # Drawing the outer rectangle of the loading bar.
-
     draw = ImageDraw.Draw(resized_image)
     # Rectangle dimensions
     rectangle_width = resize_width * 0.8  # 1000
-    rectangle_height = resize_height * 0.2  # 200
+    rectangle_height = resize_height * 0.2  # date
 
     # Calculate the coordinates of the top-left corner
     x0 = (width - rectangle_width) // 2
@@ -33,18 +31,15 @@ def create_loading_bar_image(progress):
     draw.rectangle([x0, y0, x1, y1], outline="#0096FF", width=4)
 
     # Drawing inner rectangle to show filled bar.
-    fill_width = int((width - 128) * progress)
-    draw.rectangle([x0 + 10, y0 + 10, fill_width - 10, y1 - 10], fill="#00FFFF")  # Inner
-
-    # print(f"x0:{x0}, y0:{y0}, x1:{x1}, y1:{y1}")
+    fill_width = int((rectangle_width - 20) * progress) + x0 + 10
+    draw.rectangle([x0 + 10, y0 + 10, fill_width, y1 - 10], fill="#00FFFF")  # Inner
 
     # Rectangle round behind the percentage
     draw.rounded_rectangle([550, 450, 700, 520], radius=50, fill="#ffffff")
 
-    # Season progress precentage calculations
-
-    season_end_date = datetime(2024, 3, 8)
-    chapter_5_launch_date = datetime(2023, 12, 3)
+    # Season progress percentage calculations
+    season_end_date = datetime(2024, 5, 24)
+    chapter_5_launch_date = datetime(2024, 3, 8)
     total_days = season_end_date.date() - chapter_5_launch_date.date()
     current_date = datetime.now()
     days_diff = current_date.date() - chapter_5_launch_date.date()
@@ -53,8 +48,6 @@ def create_loading_bar_image(progress):
     int_perc = int(progress_percentage)
 
     text_position = [550 + 38, 450 + 15, 700 - 50, 520 - 100]
-    # text_position = [650, 450, 750, 530]
-
     font_size = 50
     title_font_size = 100
 
@@ -64,19 +57,13 @@ def create_loading_bar_image(progress):
     draw.text(text_position, f"{int_perc} %", fill="black", font=font)
 
     title_position = [500, 180]
-
     draw.text(title_position, f"FORTNITE", fill="white", font=title_font)
 
     title2_position = [400, 280]
-
-    draw.text(title2_position, f"UNDERGROUND", fill="white", font=title_font)
-
-    # title3_position = [325, 300]
-    #
-    # draw.text(title3_position, f"SEASON PROGRESS", fill="white", font=title_font)
+    draw.text(title2_position, f"Myths & Mortals", fill="white", font=title_font)
 
     below_title = [490, 600]
-    draw.text(below_title, f"SEASON 1", fill="white", font=title_font)
+    draw.text(below_title, f"SEASON 2", fill="white", font=title_font)
 
     c5_logo_path = os.path.join("Loading_Image", "IMG_4654.png")
     battle_bus_path = os.path.join("Loading_Image", "white_bus.PNG")
@@ -87,31 +74,24 @@ def create_loading_bar_image(progress):
 
     resized_image.paste(battle_bus_logo, [1080, 20], battle_bus_logo)
     resized_image.paste(chapter_logo, [20, 20], chapter_logo)
-    # FFB700 Yellow
+
     number_5 = [100, 100]
     draw.text(number_5, f"5", fill="white", font=title_font)
 
     cc_back_path = os.path.join("Loading_Image", "FNCS_BG.JPG")
     cc_back_logo = Image.open(cc_back_path).convert('RGBA')
     cc_back_logo = cc_back_logo.resize((400, 200), Image.NEAREST)
-    # resized_image.paste(cc_back_logo, [900, 760], cc_back_logo)
 
-    # support_code_pos = [1040, 790]
-    # support_code_pos2 = [1025, 840]
-    # support_code_pos3 = [1015, 890]
-    # draw.text(support_code_pos, f"USE", font=support_code_font)
-    # draw.text(support_code_pos2, f"CODE", font=support_code_font)
-    # draw.text(support_code_pos3, f"BRNYT", font=support_code_font)
     support_font_size = 65
     support_code_font = ImageFont.truetype(font_path, support_font_size)
     support_code_pos = [900, 890]
-    draw.text(support_code_pos, f"USE CODE BRNYT", font=support_code_font)
+    draw.text(support_code_pos, f"USE CODE:BRNYT", font=support_code_font)
+
     return resized_image
 
-
 def display_loading_bar():
-    season_end_date = datetime(2024, 3, 8)
-    chapter_5_launch_date = datetime(2023, 12, 3)
+    season_end_date = datetime(2024, 5, 24)
+    chapter_5_launch_date = datetime(2024, 3, 8)
     total_days = season_end_date.date() - chapter_5_launch_date.date()
     current_date = datetime.now()
     days_diff = current_date.date() - chapter_5_launch_date.date()
