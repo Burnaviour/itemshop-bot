@@ -31,9 +31,9 @@ def create_loading_bar_image(progress):
     draw.rectangle([x0, y0, x1, y1], outline="#0096FF", width=4)
 
     # Drawing inner rectangle to show filled bar.
+
     fill_width = int((rectangle_width - 20) * progress) + x0 + 10
     draw.rectangle([x0 + 10, y0 + 10, fill_width, y1 - 10], fill="#00FFFF")  # Inner
-
     # Rectangle round behind the percentage
     draw.rounded_rectangle([550, 450, 700, 520], radius=50, fill="#ffffff")
 
@@ -95,8 +95,9 @@ def display_loading_bar():
     total_days = season_end_date.date() - chapter_5_launch_date.date()
     current_date = datetime.now()
     days_diff = current_date.date() - chapter_5_launch_date.date()
-    
+
     progress = days_diff.days / total_days.days
+    print(progress)
     progress_percentage = int(progress * 100)
     loading_bar = create_loading_bar_image(progress)
     try:
